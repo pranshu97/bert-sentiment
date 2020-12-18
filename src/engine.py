@@ -5,7 +5,7 @@ import torch
 import numpy as np
 
 def loss_fn(outputs,targets):
-	return nn.BCELoss()(outputs.argmax(dim=1),targets)
+	return nn.CrossEntropyLoss()(outputs.argmax(dim=1),targets)
 
 def train(data_loader, model, optimizer, scheduler,device):
 	model.train()
