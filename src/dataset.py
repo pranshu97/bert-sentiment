@@ -16,7 +16,7 @@ class TweetDataset:
 		tweet = str(self.tweets[idx])
 		tweet = ' '.join(tweet.split())
 
-		inp = self.tokenizer.encode_plus(tweet,None,add_special_tokens=True,max_length=self.max_len)
+		inp = self.tokenizer.encode_plus(tweet,None,add_special_tokens=True,max_length=self.max_len,truncation=True)
 
 		ids = inp['input_ids']
 		mask = inp['attention_mask']
