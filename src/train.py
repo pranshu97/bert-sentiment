@@ -62,11 +62,11 @@ def run():
         outputs = outputs.argmax(axis=1)
         acc = accuracy_score(outputs, targets)
         f1 = f1_score(outputs,targets,average='weighted')
-        print(f'Epoch:{epoch+1}, Accuracy: {acc}, F1 Score: {f1}, Loss:{loss}')
+        print(f'Epoch:{epoch+1}, Accuracy: {acc}, F1 Score: {f1}, Loss:{loss}\n')
         if acc>best_acc:
             torch.save(model, config.MODEL_PATH)
             best_acc = acc
-            print('\nAccuracy improved, model saved.\n')
+            print('Accuracy improved, model saved.\n')
 
 if __name__=='__main__':
 	run()
