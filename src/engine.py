@@ -8,23 +8,23 @@ def loss_fn(outputs,targets):
 	return nn.CrossEntropyLoss()(outputs,targets)
 
 def train(data_loader, model, optimizer, scheduler,device):
-	model.train()
+    model.train()
     total_loss = []
-	for i,data in tqdm(enumerate(data_loader),total=len(data_loader)):
-		ids = data['ids'].to(device)
-		token_type_ids = data['token_type_ids'].to(device)
-		mask = data['mask'].to(device)
-		targets = data['targets'].to(device)
+    for i,data in tqdm(enumerate(data_loader),total=len(data_loader)):
+        ids = data['ids'].to(device)
+        token_type_ids = data['token_type_ids'].to(device)
+        mask = data['mask'].to(device)
+        targets = data['targets'].to(device)
 
-		optimizer.zero_grad()
-		out = model(ids,mask,token_type_ids)
-		
-		loss = loss_fn(out,targets)
-		loss.backward()
+        optimizer.zero_grad()
+        out = model(ids,mask,token_type_ids)
+
+        loss = loss_fn(out,targets)
+        loss.backward()
         total_loss.append(loss.cpu().detach().numpy().tolist())
 
-		optimizer.step()
-		scheduler.step()
+        optimizer.step()
+        scheduler.step()
     avg_loss = sum(total_loss)/len(total_loss)
     return avg_loss
 

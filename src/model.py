@@ -8,7 +8,7 @@ class BertModel(nn.Module):
 		super(BertModel,self).__init__()
 
 		self.bert = transformers.BertModel.from_pretrained(config.BERT_PATH)
-		self.dropout = nn.Dropout(0.5)
+		self.dropout = nn.Dropout(0.4)
 		self.linear = nn.Linear(768,3)
 
 	def forward(self,ids,mask,token_type_ids):
