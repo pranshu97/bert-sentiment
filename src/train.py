@@ -33,7 +33,7 @@ def run():
 	train_loader = torch.utils.data.DataLoader(train_data,batch_size=config.TRAIN_BATCH_SIZE,num_workers=4)
 	val_loader = torch.utils.data.DataLoader(val_data,batch_size=config.VAL_BATCH_SIZE,num_workers=4)
 
-	device = torch.device('cpu')
+	device = torch.device('cuda')
 
 	model = BertModel()
 
