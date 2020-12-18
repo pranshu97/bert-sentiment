@@ -37,6 +37,9 @@ def run():
 
     model = BertModel().to(device)
 
+    # for param in model.bert.parameters():
+    #     param.requires_grad = False
+
     opt_param = list(model.named_parameters())
     no_decay = ['bias','LayerNorm.bias','LayerNorm.weight']
     optimizer_parameters = [
@@ -57,16 +60,16 @@ def run():
     best_acc = 0
 
     for epoch in range(config.EPOCHS):
-        engine.train(train_loader, model, optimizer, scheduler, device)
+        train_loss = engine.train(train_loader, model, optimizer, scheduler, device)
         outputs,targets,loss = engine.eval(val_loader, model, device)
         outputs = outputs.argmax(axis=1)
         acc = accuracy_score(outputs, targets)
         f1 = f1_score(outputs,targets,average='weighted')
-        print(f'Epoch:{epoch+1}, Accuracy: {acc}, F1 Score: {f1}, Loss:{loss}\n')
+        print(f'Epoch:{epoch+1}, Train Loss: {train_loss}, Validation Loss: {loss}\nAccuracy: {acc}, F1 Score: {f1}\n')
         if acc>best_acc:
             torch.save(model, config.MODEL_PATH)
             best_acc = acc
             print('Accuracy improved, model saved.\n')
 
 if __name__=='__main__':
-	run()
+    run()
