@@ -35,7 +35,7 @@ def run():
 
 	device = torch.device('cuda')
 
-	model = BertModel()
+	model = BertModel().to(device)
 
 	opt_param = list(model.named_parameters())
 	no_decay = ['bias','LayerNorm.bias','LayerNorm.weight']
