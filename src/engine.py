@@ -39,7 +39,6 @@ def eval(data_loader, model, device):
 			targets = data['targets'].to(device)
 
 			out = model(ids,mask,token_type_ids)
-			out = torch.softmax(out)
 			
 			loss = loss_fn(out,targets)
 
@@ -50,5 +49,5 @@ def eval(data_loader, model, device):
 		total_loss = np.array(total_loss)
 		avg_loss = sum(total_loss)/len(total_loss)
 
-	return total_outputs,total_targets,avg_loss
+	return np.array(total_outputs),np.array(total_targets),avg_loss
 
